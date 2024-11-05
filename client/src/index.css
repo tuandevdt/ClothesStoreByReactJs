@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@media (min-width: 1024px) {
+    .lg\:ml-64 {
+        margin-left: 0 !important;
+        padding-left: 16rem;
+    }
+}
