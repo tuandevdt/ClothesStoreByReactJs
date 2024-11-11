@@ -96,11 +96,11 @@ export default function AdminProduct() {
                   Out of Stock
                 </span>
               </td>
-              <td class="p-4">
-                <button class="mr-4" title="Edit">
+              <td className="p-4">
+                <button className="mr-4" title="Edit">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 fill-blue-500 hover:fill-blue-700"
+                    className="w-5 fill-blue-500 hover:fill-blue-700"
                     viewBox="0 0 348.882 348.882"
                   >
                     <path
@@ -116,7 +116,7 @@ export default function AdminProduct() {
                 <button title="Delete">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 fill-red-500 hover:fill-red-700"
+                    className="w-5 fill-red-500 hover:fill-red-700"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -149,15 +149,15 @@ export default function AdminProduct() {
               <td className="text-sm leading-normal">243598234</td>
               <td className="text-sm leading-normal">0</td>
               <td className="text-center">
-                <span class="py-1.8 px-3 text-xxs rounded-1 font-bold uppercase leading-none text-lime-600 bg-lime-200">
+                <span className="py-1.8 px-3 text-xxs rounded-1 font-bold uppercase leading-none text-lime-600 bg-lime-200">
                   in Stock
                 </span>
               </td>
-              <td class="p-4">
-                <button class="mr-4" title="Edit">
+              <td className="p-4">
+                <button className="mr-4" title="Edit">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 fill-blue-500 hover:fill-blue-700"
+                    className="w-5 fill-blue-500 hover:fill-blue-700"
                     viewBox="0 0 348.882 348.882"
                   >
                     <path
@@ -173,7 +173,7 @@ export default function AdminProduct() {
                 <button title="Delete">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 fill-red-500 hover:fill-red-700"
+                    className="w-5 fill-red-500 hover:fill-red-700"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -210,11 +210,11 @@ export default function AdminProduct() {
                   Out of Stock
                 </span>
               </td>
-              <td class="p-4">
-                <button class="mr-4" title="Edit">
+              <td className="p-4">
+                <button className="mr-4" title="Edit">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 fill-blue-500 hover:fill-blue-700"
+                    className="w-5 fill-blue-500 hover:fill-blue-700"
                     viewBox="0 0 348.882 348.882"
                   >
                     <path
@@ -230,7 +230,7 @@ export default function AdminProduct() {
                 <button title="Delete">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 fill-red-500 hover:fill-red-700"
+                    className="w-5 fill-red-500 hover:fill-red-700"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -263,15 +263,15 @@ export default function AdminProduct() {
               <td className="text-sm leading-normal">243598234</td>
               <td className="text-sm leading-normal">0</td>
               <td className="text-center">
-                <span class="py-1.8 px-3 text-xxs rounded-1 font-bold uppercase leading-none text-lime-600 bg-lime-200">
+                <span className="py-1.8 px-3 text-xxs rounded-1 font-bold uppercase leading-none text-lime-600 bg-lime-200">
                   in Stock
                 </span>
               </td>
-              <td class="p-4">
-                <button class="mr-4" title="Edit">
+              <td className="p-4">
+                <button className="mr-4" title="Edit">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 fill-blue-500 hover:fill-blue-700"
+                    className="w-5 fill-blue-500 hover:fill-blue-700"
                     viewBox="0 0 348.882 348.882"
                   >
                     <path
@@ -287,7 +287,7 @@ export default function AdminProduct() {
                 <button title="Delete">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 fill-red-500 hover:fill-red-700"
+                    className="w-5 fill-red-500 hover:fill-red-700"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -324,11 +324,11 @@ export default function AdminProduct() {
                   Out of Stock
                 </span>
               </td>
-              <td class="p-4">
-                <button class="mr-4" title="Edit">
+              <td className="p-4">
+                <button className="mr-4" title="Edit">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 fill-blue-500 hover:fill-blue-700"
+                    className="w-5 fill-blue-500 hover:fill-blue-700"
                     viewBox="0 0 348.882 348.882"
                   >
                     <path
@@ -344,7 +344,7 @@ export default function AdminProduct() {
                 <button title="Delete">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 fill-red-500 hover:fill-red-700"
+                    className="w-5 fill-red-500 hover:fill-red-700"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -377,15 +377,15 @@ export default function AdminProduct() {
               <td className="text-sm leading-normal">243598234</td>
               <td className="text-sm leading-normal">0</td>
               <td className="text-center">
-                <span class="py-1.8 px-3 text-xxs rounded-1 font-bold uppercase leading-none text-lime-600 bg-lime-200">
+                <span className="py-1.8 px-3 text-xxs rounded-1 font-bold uppercase leading-none text-lime-600 bg-lime-200">
                   in Stock
                 </span>
               </td>
-              <td class="p-4">
-                <button class="mr-4" title="Edit">
+              <td className="p-4">
+                <button className="mr-4" title="Edit">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 fill-blue-500 hover:fill-blue-700"
+                    className="w-5 fill-blue-500 hover:fill-blue-700"
                     viewBox="0 0 348.882 348.882"
                   >
                     <path
@@ -401,7 +401,7 @@ export default function AdminProduct() {
                 <button title="Delete">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 fill-red-500 hover:fill-red-700"
+                    className="w-5 fill-red-500 hover:fill-red-700"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -420,24 +420,24 @@ export default function AdminProduct() {
         </table>
       </div>
 
-      <div class="md:flex m-4">
-        <p class="text-sm text-gray-500 flex-1">
+      <div className="md:flex m-4">
+        <p className="text-sm text-gray-500 flex-1">
           Showind 1 to 5 of 100 entries
         </p>
-        <div class="flex items-center max-md:mt-4">
-          <p class="text-sm text-gray-500">Display</p>
-          <select class="text-sm text-gray-500 border border-gray-400 rounded h-7 mx-4 px-1 outline-none">
+        <div className="flex items-center max-md:mt-4">
+          <p className="text-sm text-gray-500">Display</p>
+          <select className="text-sm text-gray-500 border border-gray-400 rounded h-7 mx-4 px-1 outline-none">
             <option>5</option>
             <option>10</option>
             <option>20</option>
             <option>50</option>
             <option>100</option>
           </select>
-          <ul class="flex space-x-1 ml-2">
-            <li class="flex items-center justify-center cursor-pointer bg-blue-100 w-7 h-7 rounded">
+          <ul className="flex space-x-1 ml-2">
+            <li className="flex items-center justify-center cursor-pointer bg-blue-100 w-7 h-7 rounded">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-3 fill-gray-500"
+                className="w-3 fill-gray-500"
                 viewBox="0 0 55.753 55.753"
               >
                 <path
@@ -446,22 +446,22 @@ export default function AdminProduct() {
                 ></path>
               </svg>
             </li>
-            <li class="flex items-center justify-center cursor-pointer text-sm w-7 h-7 text-gray-500 rounded">
+            <li className="flex items-center justify-center cursor-pointer text-sm w-7 h-7 text-gray-500 rounded">
               1
             </li>
-            <li class="flex items-center justify-center cursor-pointer text-sm bg-[#007bff] text-white w-7 h-7 rounded">
+            <li className="flex items-center justify-center cursor-pointer text-sm bg-[#007bff] text-white w-7 h-7 rounded">
               2
             </li>
-            <li class="flex items-center justify-center cursor-pointer text-sm w-7 h-7 text-gray-500 rounded">
+            <li className="flex items-center justify-center cursor-pointer text-sm w-7 h-7 text-gray-500 rounded">
               3
             </li>
-            <li class="flex items-center justify-center cursor-pointer text-sm w-7 h-7 text-gray-500 rounded">
+            <li className="flex items-center justify-center cursor-pointer text-sm w-7 h-7 text-gray-500 rounded">
               4
             </li>
-            <li class="flex items-center justify-center cursor-pointer bg-blue-100 w-7 h-7 rounded">
+            <li className="flex items-center justify-center cursor-pointer bg-blue-100 w-7 h-7 rounded">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-3 fill-gray-500 rotate-180"
+                className="w-3 fill-gray-500 rotate-180"
                 viewBox="0 0 55.753 55.753"
               >
                 <path

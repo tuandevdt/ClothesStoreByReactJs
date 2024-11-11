@@ -16,7 +16,7 @@ export default function AdminCategory() {
             <div className="w-full md:w-full px-3 mb-6">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
-                htmlfor="category_name"
+                htmlFor="category_name"
               >
                 Category Name
               </label>
@@ -47,7 +47,7 @@ export default function AdminCategory() {
             <div className="w-full px-3 mb-8">
               <label
                 className="mx-auto cursor-pointer flex w-full max-w-lg flex-col items-center justify-center rounded-xl border-2 border-dashed border-green-400 bg-white p-6 text-center"
-                htmlfor="dropzone-file"
+                htmlFor="dropzone-file"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -55,11 +55,11 @@ export default function AdminCategory() {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  strokewidth={2}
+                  strokeWidth={2}
                 >
                   <path
-                    strokelinecap="round"
-                    strokelinejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                   />
                 </svg>
@@ -121,15 +121,9 @@ export default function AdminCategory() {
                       href="#"
                       className="rounded-md hover:bg-green-100 text-green-600 p-2 flex justify-between items-center"
                     >
-                      <span>
-                        <faedit className="w-4 h-4 mr-1"></faedit>
-                      </span>{" "}
                       Edit
                     </a>
                     <button className="rounded-md hover:bg-red-100 text-red-600 p-2 flex justify-between items-center">
-                      <span>
-                        <fatrash className="w-4 h-4 mr-1" />
-                      </span>{" "}
                       Delete
                     </button>
                   </div>

@@ -1,16 +1,15 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <header className="flex bg-white border-b py-4 sm:px-8 px-6 font-[sans-serif] min-h-[80px] tracking-wide relative z-50">
   <div className="flex flex-wrap items-center lg:gap-y-2 gap-4 w-full">
-    <a href="/">
-      <img
+      <Link to=""><img
         src="https://cdn.haitrieu.com/wp-content/uploads/2022/05/Logo-Yody.png"
         alt="logo"
         className="w-24"
-      />
-    </a>
+      /></Link>
     <div
       id="collapseMenu"
       className="lg:ml-10 max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50"
@@ -36,53 +35,51 @@ export default function Header() {
       </button>
       <ul className="lg:flex lg:gap-x-3 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
         <li className="mb-6 hidden max-lg:block">
-          <a href="">
+          <Link to="">
             <img
               src="https://readymadeui.com/readymadeui.svg"
               alt="logo"
               className="w-36"
             />
-          </a>
+          </Link>
         </li>
         <li className="max-lg:border-b max-lg:py-3 px-3">
-          <a
-            href="/"
+          <Link to=''
             className="text-[#007bff] hover:text-[#007bff] text-[15px] block font-semibold"
           >
             Home
-          </a>
+          </Link>
         </li>
         <li className="max-lg:border-b max-lg:py-3 px-3">
-          <a
-            href="/about"
+          <Link to="about"
             className="text-[#333] hover:text-[#007bff] text-[15px] block font-semibold"
           >
             About
-          </a>
+          </Link>
         </li>
         <li className="max-lg:border-b max-lg:py-3 px-3">
-          <a
-            href="/products"
+          <Link
+            to="products"
             className="text-[#333] hover:text-[#007bff] text-[15px] block font-semibold"
           >
             Products
-          </a>
+          </Link>
         </li>
         <li className="max-lg:border-b max-lg:py-3 px-3">
-          <a
-            href="/contact"
+          <Link
+            to="news"
             className="text-[#333] hover:text-[#007bff] text-[15px] block font-semibold"
           >
-            Contact
-          </a>
+            News
+          </Link>
         </li>
         <li className="max-lg:border-b max-lg:py-3 px-3">
-          <a
-            href="/admin/dashboard"
+          <Link
+            to="admin/dashboard"
             className="text-[#333] hover:text-[#007bff] text-[15px] block font-semibold"
           >
             Admin
-          </a>
+          </Link>
         </li>
       </ul>
     </div>
@@ -119,7 +116,7 @@ export default function Header() {
             0
           </span>
         </span>
-        <span className="relative">
+        <Link to='cart' className="relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20px"
@@ -135,7 +132,7 @@ export default function Header() {
           <span className="absolute left-auto -ml-1 top-0 rounded-full bg-red-500 px-1 py-0 text-xs text-white">
             0
           </span>
-        </span>
+        </Link>
         <button className="px-5 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]">
           Sign In
         </button>

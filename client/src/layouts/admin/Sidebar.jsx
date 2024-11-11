@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   return (
@@ -39,8 +40,8 @@ export default function Sidebar() {
                   </form>
                 </li>
                 <li>
-                  <a
-                    href="/admin/dashboard"
+                  <Link
+                    to="dashboard"
                     className="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group"
                   >
                     <svg
@@ -53,11 +54,11 @@ export default function Sidebar() {
                       <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
                     </svg>
                     <span className="ml-3">Dashboard</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/admin/users"
+                  <Link
+                    to="users"
                     className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
                   >
                     <svg
@@ -73,11 +74,11 @@ export default function Sidebar() {
                       />
                     </svg>
                     <span className="ml-3 flex-1 whitespace-nowrap">Users</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/admin/categories"
+                  <Link
+                    to="categories"
                     className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
                   >
                     <svg
@@ -94,11 +95,11 @@ export default function Sidebar() {
                     {/* <span className="bg-gray-200 text-gray-800 ml-3 text-sm font-medium inline-flex items-center justify-center px-2 rounded-full">
                       Pro
                     </span> */}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/admin/products"
+                  <Link
+                    to="products"
                     className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
                   >
                     <svg
@@ -116,12 +117,12 @@ export default function Sidebar() {
                     <span className="ml-3 flex-1 whitespace-nowrap">
                       Products
                     </span>
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    href="/admin/reviews"
+                  <Link
+                    to="/reviews"
                     className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
                   >
                     <svg
@@ -139,11 +140,11 @@ export default function Sidebar() {
                     {/* <span className="bg-gray-200 text-gray-800 ml-3 text-sm font-medium inline-flex items-center justify-center px-2 rounded-full">
                       Pro
                     </span> */}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/admin/orders"
+                  <Link
+                    to="orders"
                     className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
                   >
                     <svg
@@ -161,11 +162,11 @@ export default function Sidebar() {
                     <span className="ml-3 flex-1 whitespace-nowrap">
                       Orders
                     </span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
                   >
                     <svg
@@ -183,12 +184,12 @@ export default function Sidebar() {
                     <span className="ml-3 flex-1 whitespace-nowrap">
                       Sign Up
                     </span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
               <div className="space-y-2 pt-2">
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2"
                 >
                   <svg
@@ -207,9 +208,9 @@ export default function Sidebar() {
                     />
                   </svg>
                   <span className="ml-4">Upgrade to Pro</span>
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="#"
                   target="_blank"
                   className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2"
                 >
@@ -227,9 +228,9 @@ export default function Sidebar() {
                     />
                   </svg>
                   <span className="ml-3">Documentation</span>
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="#"
                   target="_blank"
                   className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2"
                 >
@@ -242,9 +243,9 @@ export default function Sidebar() {
                     <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
                   </svg>
                   <span className="ml-3">Components</span>
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="#"
                   target="_blank"
                   className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2"
                 >
@@ -261,7 +262,7 @@ export default function Sidebar() {
                     />
                   </svg>
                   <span className="ml-3">Help</span>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

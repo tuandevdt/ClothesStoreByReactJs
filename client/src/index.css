@@ -7,3 +7,30 @@
         padding-left: 16rem;
     }
 }
+/* Ẩn thanh cuộn mặc định */
+::-webkit-scrollbar {
+    width: 10px; /* Chiều rộng thanh cuộn dọc */
+    height: 10px; /* Chiều cao thanh cuộn ngang */
+  }
+  
+  /* Màu sắc thanh cuộn */
+  ::-webkit-scrollbar-thumb {
+    background-color: #b3b3b3; /* Màu thanh cuộn */
+    border-radius: 10px; 
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #636363; /* Màu thanh cuộn */
+  }
+  
+  /* Màu nền của thanh cuộn */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Màu nền của thanh cuộn */
+  }
+  .scrollable {
+    cursor: pointer; /* Đặt cursor cho phần tử chứa */
+  }
+  .div-color {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}

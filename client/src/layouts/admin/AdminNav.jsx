@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 export default function AdminNav() {
   return (
@@ -39,8 +40,8 @@ export default function AdminNav() {
                 />
               </svg>
             </button>
-            <a
-              href="/"
+            <Link
+              to="/"
               className="text-xl font-bold flex items-center lg:ml-2.5"
             >
               <img
@@ -48,7 +49,7 @@ export default function AdminNav() {
                 alt="logo"
                 className="w-24"
               />
-            </a>
+            </Link>
             <form action="#" method="GET" className="hidden lg:block lg:pl-32">
               <label htmlFor="topbar-search" className="sr-only">
                 Search
