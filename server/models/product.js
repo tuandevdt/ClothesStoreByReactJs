@@ -10,10 +10,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DECIMAL(10, 0),
         allowNull: false,
       },
-      image: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       description: {
         type: DataTypes.TEXT,
       },
@@ -28,34 +24,42 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       timestamps: true,
-      paranoid: true,
+      paranoid: true, // Soft delete
     }
   );
 
-  Product.associate = function (models) {
+  // Định nghĩa quan hệ trong hàm associate
+  Product.associate = (models) => {
     // Mối quan hệ với Category
     Product.belongsTo(models.Category, {
       foreignKey: "categoryId",
-      as: "category", // Tên alias cho mối quan hệ
+      as: "category",
     });
 
     // Mối quan hệ với Cart
     Product.hasMany(models.Cart, {
       foreignKey: "productId",
-      as: "carts", // Tên alias cho mối quan hệ
+      as: "carts",
     });
 
     // Mối quan hệ với OrderItem
     Product.hasMany(models.OrderItem, {
       foreignKey: "productId",
-      as: "orderItems", // Tên alias cho mối quan hệ
+      as: "orderItems",
     });
 
     // Mối quan hệ với Review
     Product.hasMany(models.Review, {
       foreignKey: "productId",
-      as: "reviews", // Tên alias cho mối quan hệ
+      as: "reviews",
+    });
+
+    // Mối quan hệ với ProductVariant
+    Product.hasMany(models.Color, {
+      foreignKey: "productId",
+      as: "colors",
     });
   };
+
   return Product;
 };

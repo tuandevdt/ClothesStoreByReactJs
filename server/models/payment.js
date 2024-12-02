@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Payment = sequelize.define(
+const Payment = sequelize.define(
     "Payment",
     {
       paymentMethod: {
@@ -48,3 +48,4 @@ module.exports = (sequelize, DataTypes) => {
 
   return Payment;
 };
+

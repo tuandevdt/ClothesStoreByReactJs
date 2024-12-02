@@ -6,18 +6,16 @@ export default function Footer() {
   <div className="max-w-2xl mx-auto text-center">
     <a href="" className="inline-block">
       <img
-        src="https://readymadeui.com/readymadeui-light.svg"
+        src="https://cdn.haitrieu.com/wp-content/uploads/2022/05/Logo-Yody.png"
         alt="logo"
         className="w-48"
       />
     </a>
     <p className="text-sm mt-8 text-gray-200">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida,
-      mi eu pulvinar cursus, sem elit interdum mauris dipiscing elit. Aenean
-      gravida, mi eu pulvinar cursus.{" "}
+      Chúng tôi luôn trân trọng và mong đợi nhận được mọi ý kiến đóng góp từ khách hàng để có thể nâng cấp trải nghiệm dịch vụ và sản phẩm tốt hơn nữa. 
       <a
         href=""
-        className="text-sm font-semibold text-blue-500"
+        className="text-sm m-2 font-semibold text-blue-500"
       >
         Read more...
       </a>
@@ -139,7 +137,7 @@ export default function Footer() {
       </div>
       <a href="" className="text-blue-500 text-sm ml-3">
         <small className="block">Tel</small>
-        <strong>180-548-2588</strong>
+        <strong>036-293-1719</strong>
       </a>
     </li>
     <li className="flex items-center">
@@ -159,7 +157,7 @@ export default function Footer() {
       </div>
       <a href="" className="text-blue-500 text-sm ml-3">
         <small className="block">Mail</small>
-        <strong>info@example.com</strong>
+        <strong>tuandevdt@gmail.com</strong>
       </a>
     </li>
     <li className="flex items-center">
@@ -183,7 +181,7 @@ export default function Footer() {
       </div>
       <a href="" className="text-blue-500 text-sm ml-3">
         <small className="block">Address</small>
-        <strong>123 Main Street City, Country</strong>
+        <strong>65 Pham Nhu Xuong Street</strong>
       </a>
     </li>
     <li className="flex items-center">
@@ -203,7 +201,7 @@ export default function Footer() {
       </div>
       <a href="" className="text-blue-500 text-sm ml-3">
         <small className="block">Fax</small>
-        <strong>+1-548-2588</strong>
+        <strong>+84-905-114-115</strong>
       </a>
     </li>
   </ul>
@@ -236,7 +234,7 @@ export default function Footer() {
       </li>
     </ul>
     <p className="text-sm text-gray-200 md:ml-auto">
-      © ReadymadeUI. All rights reserved.
+      © Tuan Dev. All rights reserved.
     </p>
   </div>
 </footer>

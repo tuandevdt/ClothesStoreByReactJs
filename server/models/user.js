@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
+const User = sequelize.define(
     "User",
     {
       username: {
@@ -19,13 +19,19 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      image: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       role: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: 'user',
       },
       isActive: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: true,
       },
     },
     {
@@ -41,6 +47,12 @@ module.exports = (sequelize, DataTypes) => {
       as: "addresses", // Tên alias cho mối quan hệ
     });
 
+    // Mối quan hệ với Cart
+    User.hasMany(models.Cart, {
+      foreignKey: "userId",
+      as: "carts", // Tên alias cho mối quan hệ
+    });
+
     // Mối quan hệ với Order
     User.hasMany(models.Order, {
       foreignKey: "userId",
@@ -53,6 +65,5 @@ module.exports = (sequelize, DataTypes) => {
       as: "reviews", // Tên alias cho mối quan hệ
     });
   };
-
   return User;
 };

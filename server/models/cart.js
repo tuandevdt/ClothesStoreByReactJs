@@ -14,6 +14,30 @@ module.exports = (sequelize, DataTypes) => {
           key: "id", // Khóa chính của bảng Product
         },
       },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users", // Tên bảng trong cơ sở dữ liệu cho User
+          key: "id", // Khóa chính của bảng User
+        },
+      },
+      colorId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "colors", // Tên bảng trong cơ sở dữ liệu cho Color
+          key: "id", // Khóa chính của bảng Color
+        },
+      },
+      sizeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "sizes", // Tên bảng trong cơ sở dữ liệu cho Size
+          key: "id", // Khóa chính của bảng Size
+        },
+      },
     },
     {
       timestamps: true, // Tự động tạo createdAt và updatedAt
@@ -21,11 +45,29 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   // Định nghĩa các mối quan hệ giữa Cart và các model khác
-  Cart.associate = function (models) {
+  Cart.associate = (models) => {
     // Mối quan hệ với Product
     Cart.belongsTo(models.Product, {
       foreignKey: "productId",
       as: "product", // Tên alias cho mối quan hệ
+    });
+
+    // Mối quan hệ với User
+    Cart.belongsTo(models.User, {
+      foreignKey: "userId",
+      as: "user", // Tên alias cho mối quan hệ
+    });
+
+    // Mối quan hệ với Color
+    Cart.belongsTo(models.Color, {
+      foreignKey: "colorId",
+      as: "color", // Tên alias cho mối quan hệ
+    });
+
+    // Mối quan hệ với Size
+    Cart.belongsTo(models.Size, {
+      foreignKey: "sizeId",
+      as: "size", // Tên alias cho mối quan hệ
     });
   };
 

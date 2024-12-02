@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Review = sequelize.define(
+const Review = sequelize.define(
     "Review",
     {
       rating: {
@@ -51,9 +51,8 @@ module.exports = (sequelize, DataTypes) => {
     // Mối quan hệ với User
     Review.belongsTo(models.User, {
       foreignKey: "userId",
-      as: "user", // Tên alias cho mối quan hệ
+      as: "user", 
     });
   };
-
   return Review;
 };

@@ -1,13 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
-  const OrderItem = sequelize.define(
+const OrderItem = sequelize.define(
     "OrderItem",
     {
       quantity: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      price: {
-        type: DataTypes.DECIMAL, // Giá của sản phẩm tại thời điểm đặt hàng
         allowNull: false,
       },
       orderId: {

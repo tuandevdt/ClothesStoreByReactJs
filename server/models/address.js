@@ -11,19 +11,19 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       street: {
-        type: DataTypes.STRING(255), // Thông tin bổ sung, có thể để trống
+        type: DataTypes.STRING(255),
       },
       ward: {
         type: DataTypes.STRING(100),
-        allowNull: false, // Tên phường, không được null
+        allowNull: false,
       },
       district: {
         type: DataTypes.STRING(100),
-        allowNull: false, // Tên quận, không được null
+        allowNull: false,
       },
       city: {
         type: DataTypes.STRING(100),
-        allowNull: false, // Tên thành phố, không được null
+        allowNull: false,
       },
       isPrimary: {
         type: DataTypes.TINYINT,
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "users", // Tên bảng trong cơ sở dữ liệu (viết thường)
+          model: "users", // Tên bảng trong database
           key: "id", // Khóa chính của bảng User
         },
       },
@@ -44,18 +44,19 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   // Định nghĩa các mối quan hệ giữa Address và các model khác
-  Address.associate = function (models) {
+  Address.associate = (models) => {
     // Mối quan hệ với User
     Address.belongsTo(models.User, {
       foreignKey: "userId",
-      as: "user", // Tên alias cho mối quan hệ
+      as: "user",
     });
 
     // Mối quan hệ với Order
     Address.hasMany(models.Order, {
       foreignKey: "addressId",
-      as: "orders", // Tên alias cho mối quan hệ
+      as: "orders",
     });
   };
+
   return Address;
 };

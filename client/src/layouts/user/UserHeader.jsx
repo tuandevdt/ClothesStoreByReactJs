@@ -1,7 +1,25 @@
-import React from 'react'
+import { useEffect } from 'react';
 import { Link } from "react-router-dom";
-
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { jwtDecode } from "jwt-decode";
+import AccountDropdown from "../admin/AccountDropdown";
+import checkAndRefreshToken from "../../middleware/checkAndRefreshToken";
+import { getUser } from '../../redux/slice/authSlice';
 export default function Header() {
+  
+  const dispatch = useDispatch();
+
+  const { username, role, email } = useSelector((state) => state.auth);
+  let userData = {username, role, email};
+  console.log(userData);
+  
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
+  const isLoggedIn = username && role && email; 
+  
   return (
     <header className="flex bg-white border-b py-4 sm:px-8 px-6 font-[sans-serif] min-h-[80px] tracking-wide relative z-50">
   <div className="flex flex-wrap items-center lg:gap-y-2 gap-4 w-full">
@@ -133,9 +151,17 @@ export default function Header() {
             0
           </span>
         </Link>
-        <button className="px-5 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]">
-          Sign In
+        {isLoggedIn ? (
+          <AccountDropdown 
+            username={userData.username}
+            email={userData.email}
+            role={userData.role}
+          />
+        ) : (
+          <button className="px-5 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]">
+          <Link to="login">Sign In</Link>
         </button>
+        )}
         <button id="toggleOpen" className="lg:hidden">
           <svg
             className="w-7 h-7"

@@ -4,14 +4,19 @@ const path = require('path');
 const mysql = require('mysql2');
 var cors = require('cors')
 const db = require('./models/index');
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true 
-}));
 app.use(express.json());
 
-const apiRoute = require("./routes/api/apiIndex");
+const corsOptions = {
+  origin: 'http://localhost:5173', 
+  credentials: true, 
+};
+
+app.use(cors(corsOptions));
+
+const apiRoute = require("./routes/apiIndex");
 
 app.use("/v1/api", apiRoute)
 

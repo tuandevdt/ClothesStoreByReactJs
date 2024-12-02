@@ -34,3 +34,24 @@
     height: 30px;
     border-radius: 50%;
 }
+.btn-account {
+  cursor: pointer;
+}
+/* .right-status {
+  right: 0;
+} */
+.center-position {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.box-icon-large {
+  font-size: 35px;
+  /* background-color: #b3b3b3; */
+  color: #a3a3a3cc;
+  cursor: pointer;
+}
+.box-icon-large:hover {
+  color: #c7c7c7;
+}

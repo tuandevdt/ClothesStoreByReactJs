@@ -14,6 +14,18 @@ module.exports = (sequelize, DataTypes) => {
         ),
         defaultValue: "Chờ xác nhận", // Giá trị mặc định
       },
+      fullname:{
+        type: DataTypes.STRING,
+      },
+      phone: {
+        type: DataTypes.STRING,
+      },
+      address: {
+        type: DataTypes.STRING,
+      },
+      totalPrice: {
+        type: DataTypes.DECIMAL(10,0),
+      },
       orderDate: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW, // Thời gian hiện tại
@@ -24,14 +36,6 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: "users", // Tên bảng trong cơ sở dữ liệu (viết thường)
           key: "id", // Khóa chính của bảng User
-        },
-      },
-      addressId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: "addresses", // Tên bảng trong cơ sở dữ liệu (viết thường)
-          key: "id", // Khóa chính của bảng Address
         },
       },
     },
@@ -48,11 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       as: "user", // Tên alias cho mối quan hệ
     });
 
-    // Mối quan hệ với Address
-    Order.belongsTo(models.Address, {
-      foreignKey: "addressId",
-      as: "address", // Tên alias cho mối quan hệ
-    });
+    
 
     // Mối quan hệ với OrderItem
     Order.hasMany(models.OrderItem, {

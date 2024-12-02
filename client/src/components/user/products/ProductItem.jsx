@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function ProductItem() {
+export default function ProductItem({ product }) {
+  const defaultImage = product.colors?.[0]?.image || "default-image-url.jpg";
+
   return (
-    <div className="bg-gray-50 shadow-md overflow-hidden rounded-lg cursor-pointer hover:-translate-y-2 transition-all relative">
+    <div className="bg-gray-50 shadow-md min-w-[280px] rounded-lg cursor-pointer hover:-translate-y-2 transition-all relative">
       <div className="bg-gray-100 w-10 h-10 flex items-center justify-center rounded-full cursor-pointer absolute top-3 right-3">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -17,61 +19,29 @@ export default function ProductItem() {
           />
         </svg>
       </div>
-      <Link to="detail">
-      <div className="w-5/6 h-[260px] p-4 overflow-hidden mx-auto aspect-w-16 aspect-h-8">
-        <img
-          src="https://readymadeui.com/images/product10.webp"
-          alt="Product 2"
-          className="h-full w-full object-contain"
-        />
-      </div>
-      </Link>
-      <div className="p-6 bg-white">
-        <Link to="detail"><h3 className="text-lg font-bold text-gray-800">Urban Sneakers</h3></Link>
-        <h4 className="text-lg text-gray-800 font-bold mt-2">$12.5</h4>
-        <p className="text-gray-600 text-sm mt-2">5 types of shoos available</p>
-        <div className="flex space-x-2 mt-4">
-          <svg
-            className="w-4 fill-[#facc15]"
-            viewBox="0 0 14 13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-          </svg>
-          <svg
-            className="w-4 fill-[#facc15]"
-            viewBox="0 0 14 13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-          </svg>
-          <svg
-            className="w-4 fill-[#facc15]"
-            viewBox="0 0 14 13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-          </svg>
-          <svg
-            className="w-4 fill-[#CED5D8]"
-            viewBox="0 0 14 13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-          </svg>
-          <svg
-            className="w-4 fill-[#CED5D8]"
-            viewBox="0 0 14 13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-          </svg>
+      <Link to={`/products/${product.id}`}>
+        <div className="max-h-[320px] overflow-hidden mx-auto aspect-w-16 aspect-h-8">
+          <img
+            src={defaultImage}
+            alt={product.name}
+            className="w-full object-cover"
+          />
         </div>
+      </Link>
+      <div className="pl-6 bg-white">
+        <Link to={`/products/${product.id}`}>
+          <h3 className="text-lg pt-4 font-bold text-gray-800">{product.name}</h3>
+        </Link>
+        <h4 className="text-lg text-gray-800 font-bold mt-2">{product.price} đ</h4>
+      </div>
+      <div className="pl-6 bg-white pt-2 pb-4 flex">
+        {product.colors.map((item) => (
+          <div
+            key={item.id}
+            style={{ backgroundColor: item.name }}
+            className="w-5 h-5 border border-gray-300 rounded-full mr-3"
+          ></div>
+        ))}
       </div>
     </div>
   );
