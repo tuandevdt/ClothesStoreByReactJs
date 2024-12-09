@@ -1,4 +1,3 @@
-const { where } = require("sequelize");
 const { Order } = require("../models")
 
 const getOrders = async (userId) => {
@@ -36,4 +35,5 @@ const updateOrder = async (status, id) => {
 module.exports = {
     createOrder,
     updateOrder,
+    getOrders
 }

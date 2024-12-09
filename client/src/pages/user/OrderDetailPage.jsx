@@ -1,128 +1,98 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
+import { useGetAllOrderItemsQuery } from '../../redux/createAPI';
 
 export default function OrderDetailPage() {
+  const { id } = useParams(); 
+  const parsedId = Number(id);
+    
+  const { data, isLoading, isError, error } = useGetAllOrderItemsQuery(parsedId);
+  
+  console.log('isLoading:', isLoading);
+  console.log('data:', data);
+  console.log('isError:', isError);
+  console.log('error:', error);
+  
+  
+  console.log(data);
+  
+  const orderItems = data?.data || [];
+  console.log("hi", orderItems);
+    const list = orderItems?.map(item => {
+      return (
+        <div className="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full">
+        <div className="pb-4 md:pb-8 w-full md:w-40">
+          <img
+            className="w-full hidden md:block"
+            src={item.color.image}
+            alt="dress"
+          />
+          <img
+            className="w-full md:hidden"
+            src="https://i.ibb.co/L039qbN/Rectangle-10.png"
+            alt="dress"
+          />
+        </div>
+        <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
+          <div className="w-full flex flex-col justify-start items-start space-y-8">
+            <h3 className="text-xl dark:text-white xl:text-2xl font-semibold leading-6 text-gray-800">
+              {item.product.name}
+            </h3>
+            <div className="flex justify-start items-start flex-col space-y-2">
+              <p className="text-sm dark:text-white leading-none text-gray-800">
+                <span className="dark:text-gray-400 text-gray-300">
+                  Style:{" "}
+                </span>{" "}
+                Italic Minimal Design
+              </p>
+              <p className="text-sm dark:text-white leading-none text-gray-800">
+                <span className="dark:text-gray-400 text-gray-300">
+                  Size:{" "}
+                </span>{" "}
+                {item.size.name}
+              </p>
+              <p className="text-sm dark:text-white leading-none text-gray-800">
+                <span className="dark:text-gray-400 text-gray-300">
+                  Color:{" "}
+                </span>{" "}
+                {item.color.name}
+              </p>
+            </div>
+          </div>
+          <div className="flex justify-between space-x-8 items-start w-full">
+            <p className="text-base dark:text-white xl:text-lg leading-6">
+              {item.product.price}
+              <span className="text-red-300 line-through"> $45.00</span>
+            </p>
+            <p className="text-base dark:text-white xl:text-lg leading-6 text-gray-800">
+              {item.quantity}
+            </p>
+            <p className="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">
+              {item.product.price * item.quantity}
+            </p>
+          </div>
+        </div>
+      </div>
+      )
+    })
+
   return (
     <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
   <div className="flex justify-start item-start space-y-2 flex-col">
     <h1 className="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">
-      Order #13432
+      Order #FWB12736{orderItems.length > 0 && orderItems[0].orderId}
     </h1>
     <p className="text-base dark:text-gray-300 font-medium leading-6 text-gray-600">
-      21st Mart 2021 at 10:34 PM
+    {orderItems.length > 0 && orderItems[0].order.orderDate}
     </p>
   </div>
   <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
     <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
       <div className="flex flex-col justify-start items-start dark:bg-gray-800 bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
         <p className="text-lg md:text-xl dark:text-white font-semibold leading-6 xl:leading-5 text-gray-800">
-          Customer’s Cart
+          Chi tiết đơn hàng
         </p>
-        <div className="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full">
-          <div className="pb-4 md:pb-8 w-full md:w-40">
-            <img
-              className="w-full hidden md:block"
-              src="https://i.ibb.co/84qQR4p/Rectangle-10.png"
-              alt="dress"
-            />
-            <img
-              className="w-full md:hidden"
-              src="https://i.ibb.co/L039qbN/Rectangle-10.png"
-              alt="dress"
-            />
-          </div>
-          <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
-            <div className="w-full flex flex-col justify-start items-start space-y-8">
-              <h3 className="text-xl dark:text-white xl:text-2xl font-semibold leading-6 text-gray-800">
-                Premium Quaility Dress
-              </h3>
-              <div className="flex justify-start items-start flex-col space-y-2">
-                <p className="text-sm dark:text-white leading-none text-gray-800">
-                  <span className="dark:text-gray-400 text-gray-300">
-                    Style:{" "}
-                  </span>{" "}
-                  Italic Minimal Design
-                </p>
-                <p className="text-sm dark:text-white leading-none text-gray-800">
-                  <span className="dark:text-gray-400 text-gray-300">
-                    Size:{" "}
-                  </span>{" "}
-                  Small
-                </p>
-                <p className="text-sm dark:text-white leading-none text-gray-800">
-                  <span className="dark:text-gray-400 text-gray-300">
-                    Color:{" "}
-                  </span>{" "}
-                  Light Blue
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-between space-x-8 items-start w-full">
-              <p className="text-base dark:text-white xl:text-lg leading-6">
-                $36.00{" "}
-                <span className="text-red-300 line-through"> $45.00</span>
-              </p>
-              <p className="text-base dark:text-white xl:text-lg leading-6 text-gray-800">
-                01
-              </p>
-              <p className="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">
-                $36.00
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="mt-6 md:mt-0 flex justify-start flex-col md:flex-row items-start md:items-center space-y-4 md:space-x-6 xl:space-x-8 w-full">
-          <div className="w-full md:w-40">
-            <img
-              className="w-full hidden md:block"
-              src="https://i.ibb.co/s6snNx0/Rectangle-17.png"
-              alt="dress"
-            />
-            <img
-              className="w-full md:hidden"
-              src="https://i.ibb.co/BwYWJbJ/Rectangle-10.png"
-              alt="dress"
-            />
-          </div>
-          <div className="flex justify-between items-start w-full flex-col md:flex-row space-y-4 md:space-y-0">
-            <div className="w-full flex flex-col justify-start items-start space-y-8">
-              <h3 className="text-xl dark:text-white xl:text-2xl font-semibold leading-6 text-gray-800">
-                High Quaility Italic Dress
-              </h3>
-              <div className="flex justify-start items-start flex-col space-y-2">
-                <p className="text-sm dark:text-white leading-none text-gray-800">
-                  <span className="dark:text-gray-400 text-gray-300">
-                    Style:{" "}
-                  </span>{" "}
-                  Italic Minimal Design
-                </p>
-                <p className="text-sm dark:text-white leading-none text-gray-800">
-                  <span className="dark:text-gray-400 text-gray-300">
-                    Size:{" "}
-                  </span>{" "}
-                  Small
-                </p>
-                <p className="text-sm dark:text-white leading-none text-gray-800">
-                  <span className="dark:text-gray-400 text-gray-300">
-                    Color:{" "}
-                  </span>{" "}
-                  Light Blue
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-between space-x-8 items-start w-full">
-              <p className="text-base dark:text-white xl:text-lg leading-6">
-                $20.00{" "}
-                <span className="text-red-300 line-through"> $30.00</span>
-              </p>
-              <p className="text-base dark:text-white xl:text-lg leading-6 text-gray-800">
-                01
-              </p>
-              <p className="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">
-                $20.00
-              </p>
-            </div>
-          </div>
-        </div>
+        {list}
       </div>
       <div className="flex justify-center flex-col md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
         <div className="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 dark:bg-gray-800 space-y-6">
@@ -135,7 +105,7 @@ export default function OrderDetailPage() {
                 Subtotal
               </p>
               <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                $56.00
+              {orderItems.length > 0 && orderItems[0].order.totalPrice}
               </p>
             </div>
             <div className="flex justify-between items-center w-full">
@@ -146,7 +116,7 @@ export default function OrderDetailPage() {
                 </span>
               </p>
               <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                -$28.00 (50%)
+                -0 (0%)
               </p>
             </div>
             <div className="flex justify-between items-center w-full">
@@ -154,7 +124,7 @@ export default function OrderDetailPage() {
                 Shipping
               </p>
               <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                $8.00
+                0
               </p>
             </div>
           </div>
@@ -163,7 +133,8 @@ export default function OrderDetailPage() {
               Total
             </p>
             <p className="text-base dark:text-gray-300 font-semibold leading-4 text-gray-600">
-              $36.00
+            {orderItems.length > 0 && orderItems[0].order.totalPrice}
+
             </p>
           </div>
         </div>
@@ -189,7 +160,7 @@ export default function OrderDetailPage() {
               </div>
             </div>
             <p className="text-lg font-semibold leading-6 dark:text-white text-gray-800">
-              $8.00
+              $0
             </p>
           </div>
           <div className="w-full flex justify-center items-center">
@@ -202,7 +173,7 @@ export default function OrderDetailPage() {
     </div>
     <div className="bg-gray-50 dark:bg-gray-800 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
       <h3 className="text-xl dark:text-white font-semibold leading-5 text-gray-800">
-        Customer
+        Thông tin khách hàng
       </h3>
       <div className="flex flex-col md:flex-row xl:flex-col justify-start items-stretch h-full w-full md:space-x-6 lg:space-x-8 xl:space-x-0">
         <div className="flex flex-col justify-start items-start flex-shrink-0">
@@ -210,26 +181,17 @@ export default function OrderDetailPage() {
             <img src="https://i.ibb.co/5TSg7f6/Rectangle-18.png" alt="avatar" />
             <div className="flex justify-start items-start flex-col space-y-2">
               <p className="text-base dark:text-white font-semibold leading-4 text-left text-gray-800">
-                David Kent
+              {orderItems.length > 0 && orderItems[0].order.fullname}
               </p>
               <p className="text-sm dark:text-gray-300 leading-5 text-gray-600">
-                10 Previous Orders
+              {orderItems.length > 0 && orderItems[0].order.phone}
               </p>
             </div>
           </div>
           <div className="flex justify-center text-gray-800 dark:text-white md:justify-start items-center space-x-4 py-4 border-b border-gray-200 w-full">
-            <img
-              className="dark:hidden"
-              src="https://tuk-cdn.s3.amazonaws.com/can-uploader/order-summary-3-svg1.svg"
-              alt="email"
-            />
-            <img
-              className="hidden dark:block"
-              src="https://tuk-cdn.s3.amazonaws.com/can-uploader/order-summary-3-svg1dark.svg"
-              alt="email"
-            />
+
             <p className="cursor-pointer text-sm leading-5 ">
-              david89@gmail.com
+            {orderItems.length > 0 && orderItems[0].order.status}
             </p>
           </div>
         </div>
@@ -240,7 +202,7 @@ export default function OrderDetailPage() {
                 Shipping Address
               </p>
               <p className="w-48 lg:w-full dark:text-gray-300 xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">
-                180 North King Street, Northhampton MA 1060
+              {orderItems.length > 0 && orderItems[0].order.address}
               </p>
             </div>
             <div className="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4">

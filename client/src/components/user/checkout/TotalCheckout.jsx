@@ -25,19 +25,16 @@ export default function TotalCheckout({ carts, onUpdateTotalPrice }) {
 
     const calculateTotalPrice = (carts, listProducts) => {
         let totalPrice = 0;
-      
+        
         carts.forEach(cartItem => {
-          // Tìm sản phẩm tương ứng theo productId
           const product = listProducts.find(prod => prod.id === cartItem.productId);
           if (product) {
             totalPrice += product.price * cartItem.quantity;
           }
         });
-      
         return totalPrice;
       };
       
-      // Tính tổng tiền
       const total = calculateTotalPrice(carts, listProducts);
 
         onUpdateTotalPrice(total);

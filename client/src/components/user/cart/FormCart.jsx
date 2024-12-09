@@ -1,48 +1,73 @@
-import React, { useEffect, useState } from 'react'
-import CartItem from './CartItem';
-import TotalCart from './TotalCart';
+import React, { useEffect, useState } from "react";
+import CartItem from "./CartItem";
+import TotalCart from "./TotalCart";
+import {
+  useUpdateCartMutation,
+  useGetCartsQuery,
+} from "../../../redux/createAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { setCarts, updateCart } from "../../../redux/slice/cartSlice";
 
-export default function FormCart({ carts: initialCarts }) {
+export default function FormCart() {
+  const dispatch = useDispatch();
+  const [updateCartMutation] = useUpdateCartMutation();
 
-  const [carts, setCarts] = useState(initialCarts || []);
+  const [userId, setUserId] = useState(null);
 
-  useEffect(() => {
-    if (initialCarts) {
-      setCarts(initialCarts);
-    }
-  }, [initialCarts]);
-
+  const { data: carts, isLoading, refetch } = useGetCartsQuery(userId, {
+    refetchOnMountOrArgChange: true,
+  });
   
-    if(carts.length == 0) {
-        return (
-            <h1>Loading...</h1>
-        )
+  useEffect(() => {
+    const persistedAuth = localStorage.getItem("persist:auth");
+    if (persistedAuth) {
+      const parsedAuth = JSON.parse(persistedAuth);
+      const userId = parsedAuth.id ? parsedAuth.id.replace(/\"/g, "") : null;
+      setUserId(userId);
     }
-    const updateCartQuantity = (cartId, newQuantity) => {
-      setCarts((prevCarts) =>
-        prevCarts.map((cart) =>
-          cart.id === cartId ? { ...cart, quantity: newQuantity } : cart
-        )
-      );
-    };
+  }, []);
+  console.log('dataCarts',carts);
 
-    // if (carts.length === 0) {
-    //   return <h1>Loading...</h1>;
-    // }
-    
-    const list = carts?.map(cart => {
-        return (
-          <CartItem key={cart.id} cart={cart} updateCartQuantity={updateCartQuantity} />        )
-    })
+  const dataCarts = carts?.data || []
+  
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+  
+
+  const updateCartQuantity = async (cartId, newQuantity) => {
+
+    const cartToUpdate = dataCarts?.find((cart) => cart.id === cartId);
+
+    if (cartToUpdate) {
+      try {
+        await updateCartMutation({
+          id: cartToUpdate.id,
+          body: { quantity: newQuantity },
+        }).unwrap();
+        refetch()        
+      } catch (error) {
+        console.error("Failed to update cart", error);
+      }
+    }
+  };
+
+
 
   return (
-    <form action="">
+    <form>
       <div className="grid sm:mt-8 lg:grid-cols-3 gap-10 w-full">
         <div className="lg:col-span-2 bg-white divide-y">
-          {list}
+          {dataCarts?.map((cart, index) => (
+            <CartItem
+              key={cart.id ?? index}
+              cart={cart}
+              updateCartQuantity={updateCartQuantity}
+            />
+          ))}
         </div>
-        <TotalCart carts={carts} />
+        <TotalCart carts={dataCarts} />
       </div>
     </form>
-  )
+  );
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-export default function OrderItem({status}) {
+export default function OrderItem({order, status}) {
   return (
     <div className="flex flex-wrap items-center gap-y-4 py-6">
     <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
@@ -9,9 +9,9 @@ export default function OrderItem({status}) {
         Order ID:
       </dt>
       <dd className="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-        <a href="#" className="hover:underline">
-          #FWB127364372
-        </a>
+        <Link to={`/my-orders/${order.id}`} className="hover:underline">
+          #FWB1273643{order.id}
+        </Link>
       </dd>
     </dl>
     <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
@@ -19,7 +19,7 @@ export default function OrderItem({status}) {
         Date:
       </dt>
       <dd className="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-        20.12.2023
+        {order.orderDate}
       </dd>
     </dl>
     <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
@@ -27,7 +27,7 @@ export default function OrderItem({status}) {
         Price:
       </dt>
       <dd className="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-        $4,756
+       {order.totalPrice}
       </dd>
     </dl>
     <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
@@ -44,7 +44,7 @@ export default function OrderItem({status}) {
         Cancel order
       </button>
       <Link
-        to="1"
+        to={`/my-orders/${order.id}`}
         className="w-full inline-flex justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 lg:w-auto"
       >
         View details

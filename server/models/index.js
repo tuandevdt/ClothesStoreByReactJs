@@ -7,6 +7,9 @@ const sequelize = new Sequelize("clothesstore", "root", "Tuandoan@2404", {
   host: "localhost",
   dialect: "mysql",
 });
+console.log(1111);
+sequelize.options.logging = console.log;
+console.log(222);
 
 // Kiểm tra kết nối
 sequelize

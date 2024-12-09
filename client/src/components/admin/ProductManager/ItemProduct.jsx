@@ -42,7 +42,7 @@ export default function ItemProduct({ product }) {
     try {
       // await deleteProduct(product.id); // Call delete mutation
       console.log(`Product ${product.id} deleted successfully.`);
-      // Optionally, refresh the product list or navigate away
+      
     } catch (error) {
       console.error("Error deleting product: ", error);
     } finally {

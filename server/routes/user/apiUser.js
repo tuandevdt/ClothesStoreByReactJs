@@ -22,11 +22,12 @@ router.get("/cart", ApiCartController.findById)
 router.post("/cart", ApiCartController.create)
 router.delete("/cart/:id", ApiCartController.delete)
 router.patch("/cart/:id", ApiCartController.update)
+router.delete("/cart/delete/:userId", ApiCartController.deleteAll)
 
-router.get("/order", ApiOrderController.index)
+router.get("/order/:userid", ApiOrderController.index)
 router.post("/order", ApiOrderController.create)
 
-router.get("/order/:id", ApiOrderItemController.findById)
+router.get("/orderItem/:id", ApiOrderItemController.findById)
 router.post("/orderItem", ApiOrderItemController.create)
 
 module.exports = router

@@ -41,11 +41,6 @@ const User = sequelize.define(
 
   // Định nghĩa các mối quan hệ giữa User và các model khác
   User.associate = function (models) {
-    // Mối quan hệ với Address
-    User.hasMany(models.Address, {
-      foreignKey: "userId",
-      as: "addresses", // Tên alias cho mối quan hệ
-    });
 
     // Mối quan hệ với Cart
     User.hasMany(models.Cart, {

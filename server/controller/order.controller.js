@@ -1,16 +1,13 @@
-const { where } = require("sequelize");
 const { resErrors, resData } = require("./common/common");
-const db = require("../models/index");
-const { createOrder } = require("../service/orderService");
-const { getAllCarts } = require("../service/cartService");
+const { createOrder, getOrders } = require("../service/orderService");
 
 
 class ApiOrderController {
   static async index(req, res) {
     try {
-      let products = await getAllCarts();
-      let message = "Get data successfully";
-      resData(res, 200, message, products);
+      const {userid} = req.params;
+      let orders = await getOrders(userid);
+      res.json({orders})
     } catch (error) {
       resErrors(res, 500, error.message);
     }

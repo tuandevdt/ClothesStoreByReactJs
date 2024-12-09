@@ -70,11 +70,11 @@ const getCart = async (productId, colorId, sizeId, userId) => {
     }
   };
 
-const updateCart = async (userId, id,quantity) => {
+const updateCart = async (id,quantity) => {
     try {
         const updateCart = await Cart.update(
-            { quantity }, // Giá trị cần cập nhật
-            { where: { userId, id } } // Điều kiện
+            { quantity }, 
+            { where: { id } } 
           );        
           return updateCart;
     } catch (error) {
@@ -93,10 +93,21 @@ const deleteCart = async (id) => {
     }
 }
 
+const deleteAllCart = async (userId) => {
+  try {
+    const deleteCart = await Cart.destroy({where: {userId}})
+    return deleteCart;
+  } catch (error) {
+    console.error("Error update cart:", error);
+      throw error;
+  }
+}
+
 module.exports = {
     createCart,
     getAllCarts,
     getCart,
     updateCart,
     deleteCart,
+    deleteAllCart
 }

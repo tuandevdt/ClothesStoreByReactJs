@@ -22,14 +22,14 @@ export const getUser = createAsyncThunk('auth/getUser', async (_, { rejectWithVa
     if (!token) {
       return rejectWithValue("No token found");
     }
-
     const decodedToken = jwtDecode(token);
+    
+      if (decodedToken.exp * 1000 < Date.now()) {
+        return rejectWithValue("Token has expired");
+      }
+      return decodedToken;
       
-    if (decodedToken.exp * 1000 < Date.now()) {
-      return rejectWithValue("Token has expired");
-    }
-
-    return decodedToken;
+    
   } catch (error) {
     return rejectWithValue("Failed to decode token");
   }
@@ -92,8 +92,14 @@ const authSlice = createSlice({
           state.email = action.payload.email;
         })
         .addCase(getUser.rejected, (state, action) => {
+          console.error("Error during getUser:", action.payload);
           state.error = action.payload;
+          state.username = null; // Reset state fields
+          state.id = null;
+          state.role = null;
+          state.email = null;
         });
+        
     }
     
 })

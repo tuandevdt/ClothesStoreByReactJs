@@ -1,4 +1,4 @@
-const { createCart, getAllCarts, getCart, updateCart, deleteCart } = require("../service/cartService");
+const { createCart, getAllCarts, getCart, updateCart, deleteCart, deleteAllCart } = require("../service/cartService");
 const { resErrors, resData } = require("./common/common");
 
 
@@ -7,8 +7,8 @@ class ApiCartController {
     try {
       const userId = req.params.id;
       let carts = await getAllCarts(userId)
-      let message = "Get data successfully";
-      resData(res, 200, message, carts);
+      let message = "Get cart data successfully";
+      resData(res, 200, message, carts);    
     } catch (error) {
       resErrors(res, 500, error.message);
     }
@@ -19,7 +19,6 @@ class ApiCartController {
       const { productId, colorId, sizeId, userId } = req.query;
   
       const cart = await getCart(productId, colorId, sizeId, userId);
-      let message = "Get data successfully";
       res.json(cart)
     } catch (error) {
       resErrors(res, 500, error.message);
@@ -30,8 +29,7 @@ class ApiCartController {
     try {
       const data = req.body;
       let cart = await createCart(data)
-      let message = "Get data successfully";
-      resData(res, 200, message, cart);
+      res.json(cart)
     } catch (error) {
       resErrors(res, 500, error.message);
     }
@@ -49,17 +47,22 @@ class ApiCartController {
     
   }
 
+  static async deleteAll(req, res) {
+    try {
+      const {userId} = req.params;
+      const deleteAll = await deleteAllCart(userId)
+      res.json(deleteAll)
+    } catch (error) {
+      resErrors(res, 500, error.message);
+    }
+  }
+
   static async update(req, res) {
     const {id} = req.params;
-    const data = req.body;
-    console.log("id controller", id);
-    
-    console.log('userId, cart controller',data);
+    const data = req.body;    
     try {
-
-      const userId = data.userId;
       const quantity = data.quantity;
-      const update = await updateCart(userId, id,quantity);
+      const update = await updateCart(id,quantity);
       console.log(update);
       
       let message = "Update cart data successfully";

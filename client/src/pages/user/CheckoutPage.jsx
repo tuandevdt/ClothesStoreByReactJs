@@ -2,36 +2,45 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import UlCartMenu from "../../components/user/ulCartMenu";
-import { useGetCartsQuery, useNewOrderItemMutation, useNewOrderMutation } from "../../redux/createAPI";
+import { useClearCartMutation, useGetCartsQuery, useNewOrderItemMutation, useNewOrderMutation } from "../../redux/createAPI";
 import ItemCheckout from "../../components/user/checkout/ItemCheckout";
 import TotalCart from "../../components/user/cart/TotalCart";
 import TotalCheckout from "../../components/user/checkout/TotalCheckout";
+import { useSelector } from "react-redux";
 
 export default function CheckoutPage() {
   const [totalPrice, setTotalPrice] = useState(0); 
   const [addOrder] = useNewOrderMutation()
   const [addOrderItem] = useNewOrderItemMutation()
-
-  const handleTotalPriceUpdate = (price) => {
-    setTotalPrice(price); 
-  };
-
-  const [userId, setUserId] = useState(null); // Trạng thái cho userId
+  const [clearCart] = useClearCartMutation()
+  
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     const persistedAuth = localStorage.getItem('persist:auth');
     if (persistedAuth) {
-      const parsedAuth = JSON.parse(persistedAuth); // Phân tích cú pháp JSON
-      const userId = parsedAuth.id ? parsedAuth.id.replace(/\"/g, '') : null; // Lấy id và loại bỏ dấu ngoặc kép
+      const parsedAuth = JSON.parse(persistedAuth);
+      const userId = parsedAuth.id ? parsedAuth.id.replace(/\"/g, '') : null; 
       setUserId(userId);
       
     }
-  }, [userId]);
-  const {data} = useGetCartsQuery(userId);
+  }, []);
+
+  const { data: carts, isLoading, refetch } = useGetCartsQuery(userId, {
+    refetchOnMountOrArgChange: true,
+  });
+
+  const dataCarts = carts?.data || []
+
+  const handleTotalPriceUpdate = (price) => {
+    console.log('price', price);
+    
+    setTotalPrice(price); 
+  };
+
   
-  const carts = data?.data || [];
   
-  const list = carts.map(cart => {
+  const list = dataCarts?.map(cart => {
     return (
      <ItemCheckout key={cart.id} cart={cart} />
     )
@@ -41,9 +50,9 @@ export default function CheckoutPage() {
 
   async function handleOrders(e) {
     e.preventDefault();
-    const formData = new FormData(e.target); // Tạo đối tượng FormData
+    const formData = new FormData(e.target); 
     const values = Object.fromEntries(formData.entries());
-    console.log('values form',values); // Log ra các giá trị của form
+    console.log('values form',values); 
     console.log('carts values', carts);
     const body = {userId, ...values}
     
@@ -58,6 +67,8 @@ export default function CheckoutPage() {
       
       const orderItem = await addOrderItem({body: newBody});
       console.log('orderItem',orderItem);
+      const clear = await clearCart(userId);
+      console.log('clear',clear);
       
     }
     Swal.fire({
@@ -67,9 +78,9 @@ export default function CheckoutPage() {
       showConfirmButton: false,
       timer: 1500,
     })
-    // .then(() => {
-    //   navigate("/orders");
-    // });
+    .then(() => {
+      navigate("/my-orders");
+    });
   }
   return (
     <section className="bg-white antialiased dark:bg-gray-900 md:py-16">
@@ -80,72 +91,7 @@ export default function CheckoutPage() {
         className="mx-auto max-w-screen-xl 2xl:px-0"
       >
         <UlCartMenu/>
-        {/* <ol className="items-center flex w-full max-w-2xl text-center text-sm font-medium text-gray-500 dark:text-gray-400 sm:text-base">
-          <li className="after:border-1 flex items-center text-blue-500 after:mx-6 after:hidden after:h-1 after:w-full after:border-b after:border-gray-200 dark:text-blue-400 dark:after:border-gray-700 sm:after:inline-block sm:after:content-[''] md:w-full xl:after:mx-10">
-            <span className="flex items-center after:mx-2 after:text-gray-200 after:content-['/'] dark:after:text-gray-500 sm:after:hidden">
-              <svg
-                className="me-2 h-4 w-4 sm:h-5 sm:w-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width={24}
-                height={24}
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                />
-              </svg>
-              Cart
-            </span>
-          </li>
-          <li className="after:border-1 flex items-center text-blue-500 after:mx-6 after:hidden after:h-1 after:w-full after:border-b after:border-gray-200 dark:text-blue-400 dark:after:border-gray-700 sm:after:inline-block sm:after:content-[''] md:w-full xl:after:mx-10">
-            <span className="flex items-center after:mx-2 after:text-gray-200 after:content-['/'] dark:after:text-gray-500 sm:after:hidden">
-              <svg
-                className="me-2 h-4 w-4 sm:h-5 sm:w-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width={24}
-                height={24}
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                />
-              </svg>
-              Checkout
-            </span>
-          </li>
-          <li className="flex shrink-0 items-center">
-            <svg
-              className="me-2 h-4 w-4 sm:h-5 sm:w-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width={24}
-              height={24}
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-            Order summary
-          </li>
-        </ol> */}
+    
         <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
           <div className="min-w-0 flex-1 space-y-8">
             <div className="space-y-4">
@@ -706,7 +652,7 @@ export default function CheckoutPage() {
           </div>
 
 
-            <TotalCheckout carts={carts} onUpdateTotalPrice={handleTotalPriceUpdate} />
+            <TotalCheckout carts={dataCarts} onUpdateTotalPrice={handleTotalPriceUpdate} />
             <input type="hidden" name="totalPrice" value={totalPrice} />
         </div>
       </div>

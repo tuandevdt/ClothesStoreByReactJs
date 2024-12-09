@@ -4,7 +4,6 @@ import { FaMinus } from "react-icons/fa6";
 import { useDeleteCartMutation, useUpdateCartMutation } from "../../../redux/createAPI";
 
 export default function PassCartItem({ item, cart, refetch, updateCartQuantity }) {
-    
     const [updateCart] = useUpdateCartMutation()
     const [deleteCart] = useDeleteCartMutation()
   const [quantity, setQuantity] = useState(cart.quantity);
@@ -21,6 +20,7 @@ export default function PassCartItem({ item, cart, refetch, updateCartQuantity }
   }, [userId]);
 
   const handleDecrease = async (id) => {
+    
     if (quantity > 1) {
         const newQuantity = quantity - 1;
         setQuantity(newQuantity);
@@ -58,7 +58,6 @@ export default function PassCartItem({ item, cart, refetch, updateCartQuantity }
   };
 
   const handleDelete = async (id) => {
-    console.log('id delete',id);
     await deleteCart(id);
     refetch();
   }

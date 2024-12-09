@@ -21,7 +21,8 @@ export default function TotalCart({carts}) {
     }
     const listProducts = products.data;
 
-
+    console.log('carrtsss', carts);
+    
     const calculateTotalPrice = (carts, listProducts) => {
         let totalPrice = 0;
       

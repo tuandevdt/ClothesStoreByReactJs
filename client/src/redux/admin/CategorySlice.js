@@ -1,32 +1,36 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-const initialState = {
-  value: [],
-  loading: false,
-  error: null,
-};
+export const fetchCategories = createAsyncThunk(
+  'categories/fetchCategories',
+  async () => {
+    const { data } = await axios.get('http://localhost:3000/v1/api/user/categories');
+    return data;
+  }
+);
 
 const CategorySlice = createSlice({
   name: "categories",
-  initialState,
-  reducers: {
-    addCategory: (state, action) => {
-      state.value.push(action.payload); 
-    },
-    deleteCategory: (state, action) => {
-      state.value = state.value.filter(category => category.id !== action.payload); 
-    },
-    loadCategories: (state, action) => {
-      state.value = action.payload; // Lưu danh mục vào state
-    },
-    setLoading: (state, action) => {
-      state.loading = action.payload; // Cập nhật trạng thái loading
-    },
-    setError: (state, action) => {
-      state.error = action.payload; // Cập nhật lỗi
-    }
+  initialState: {
+    value: [],
+    loading: false,
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCategories.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.loading = false;
+        state.value = action.payload;
+      })
+      .addCase(fetchCategories.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
   },
 });
 
-export const { addCategory, deleteCategory, loadCategories, setLoading, setError } = CategorySlice.actions;
 export default CategorySlice.reducer;

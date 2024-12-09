@@ -59,12 +59,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "orderId",
       as: "orderItems", // Tên alias cho mối quan hệ
     });
-
-    // Mối quan hệ với Payment
-    Order.hasMany(models.Payment, {
-      foreignKey: "orderId",
-      as: "payments", // Tên alias cho mối quan hệ
-    });
   };
 
   return Order;

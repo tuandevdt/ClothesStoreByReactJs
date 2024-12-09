@@ -5,7 +5,6 @@ import { useGetProductsQuery } from "../../redux/createAPI";
 export default function ProductPage() {
   const { data } = useGetProductsQuery();  
   const  products = data?.data || [];
-  console.log(products);
 
   const listProducts = products.map((item) => {
     return <ProductItem key={item.id} product={item} />

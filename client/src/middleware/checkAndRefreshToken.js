@@ -10,16 +10,28 @@ const checkAndRefreshToken = async (token) => {
 
     try {
       const refreshToken = localStorage.getItem("refreshToken");
-      const response = await axios.post('http://localhost:3000/v1/api/auth/refresh', {refreshToken}, { withCredentials: true });
+      if (!refreshToken) throw new Error("No refresh token available");
+    
+      const response = await axios.post(
+        'http://localhost:3000/v1/api/auth/refresh',
+        { refreshToken },
+        { withCredentials: true }
+      );
+    
       const newToken = response.data.accessToken;
-      console.log(newToken);
-      
       localStorage.setItem("accessToken", newToken);
-      return newToken; // Trả về token mới
+    
+      return newToken;
     } catch (error) {
-      console.error("Token refresh failed", error);
-      return null; // Nếu không thể làm mới token, trả về null
+      console.error("Token refresh failed:", error);
+    
+      // Xóa token khỏi localStorage nếu làm mới không thành công
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+    
+      return null;
     }
+    
   }
 
   return token; // Nếu token còn hạn, trả về token hiện tại

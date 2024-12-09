@@ -85,21 +85,6 @@ export const todoApi = createApi({
       query: () => "admin/users",
     }),
 
-    //Auth Endpoints
-    login: builder.mutation({
-      query: (body) => ({
-        url: `${authUrl}login`,
-        method: "POST",
-        body,
-      }),
-    }),
-    register: builder.mutation({
-      query: (body) => ({
-        url: `${authUrl}register`,
-        method: "POST",
-        body,
-      }),
-    }),
 
     //User Endpoints
     getProducts: builder.query({
@@ -119,7 +104,8 @@ export const todoApi = createApi({
       })
     }),
     getCarts: builder.query({
-      query: (userid) => `${userUrl}cart/${userid}`
+      query: (userid) => `${userUrl}cart/${userid}`,
+      providesTags: (result, error, userid) => [{ type: 'cart', id: userid }],
     }),
     getCart: builder.query({
       query: ({productId, colorId, sizeId, userId}) => {  
@@ -127,12 +113,20 @@ export const todoApi = createApi({
       }
     }),
     updateCart: builder.mutation({
-      query: ({id, body}) => ({        
+      query: ({ id, body }) => ({
         url: `${userUrl}cart/${id}`,
         method: 'PATCH',
         body,
-      }),      
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: 'cart', id }],
     }),
+    clearCart: builder.mutation({
+      query: (userId) => ({
+        url: `${userUrl}cart/delete/${userId}`,
+        method: 'DELETE',
+      })
+    }),
+    
     deleteCart: builder.mutation({
       query: (id) => ({
         url: `${userUrl}cart/${id}`,
@@ -152,7 +146,32 @@ export const todoApi = createApi({
         method: 'POST',
         body,
       })
-    })  
+    }),
+    getOrders: builder.query({
+      query: (id) => `${userUrl}order/${id}`
+    }),
+    getAllOrderItems: builder.query({
+      query: (id) => `${userUrl}orderItem/${id}`,
+      providesTags: (result, error, id) => [{ type: 'orderItem', id }],
+    }), 
+    
+
+
+     //Auth Endpoints
+     login: builder.mutation({
+      query: (body) => ({
+        url: `${authUrl}login`,
+        method: "POST",
+        body,
+      }),
+    }),
+    register: builder.mutation({
+      query: (body) => ({
+        url: `${authUrl}register`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -170,6 +189,9 @@ export const {
   useLazyGetProductsByCategoryIdQuery,
   useNewOrderMutation,
   useNewOrderItemMutation,
+  useClearCartMutation,
+  useGetOrdersQuery,
+  useGetAllOrderItemsQuery,
 
   useGetProductsQuery,
   useGetDetailQuery,

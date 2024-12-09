@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useNewCartMutation } from "../../../redux/createAPI";
+import { useDispatch } from "react-redux";
+import { addCartItem } from "../../../redux/slice/cartSlice";
 
 export default function DetailItem({ product }) {
   const [addCart] = useNewCartMutation();
+  const dispatch = useDispatch();
+
 
   const [color, setColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(null);
@@ -18,7 +22,7 @@ export default function DetailItem({ product }) {
       setUserId(userId);
       
     }
-  }, [userId]);
+  }, []);
 
   const handleSizeSelect = (size) => {
     setSelectedSize(size);
@@ -40,7 +44,6 @@ export default function DetailItem({ product }) {
   async function handleAddCart(e) {
     e.preventDefault();
   
-    // Kiểm tra xem người dùng đã chọn kích thước và số lượng
     if (!selectedSize) {
       Swal.fire({
         icon: 'error',
@@ -59,25 +62,38 @@ export default function DetailItem({ product }) {
       return;
     }
   
-    console.log("product", product.id);
-    console.log("color", color.id);
-    console.log("size", selectedSize.id);
-    console.log("quantity", quantity);
-    console.log("userId", userId); // In ra userId
-    const newData = {productId: product.id,userId, colorId: color.id, sizeId: selectedSize.id, quantity }
-    // Gọi API để thêm sản phẩm vào giỏ hàng
-    // const cartItem = { productId: product.id, colorId: color.id, sizeId: selectedSize.id, quantity, userId };
-    const cart = await addCart(newData)
-    console.log('cart',cart);
-    
-    Swal.fire({
-      position: "top-center",
-      icon: "success",
-      title: "Add Cart Success!",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    try {
+      const newData = { productId: product.id, userId, colorId: color.id, sizeId: selectedSize.id, quantity };
+
+      // Display loading
+      Swal.fire({
+        title: 'Adding to cart...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+  
+      const cartResponse = await addCart(newData).unwrap();
+      // dispatch(addCartItem(cartResponse)); 
+
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Added to Cart!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      // Handle the response here, such as updating cart UI, etc.
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: `Something went wrong: ${error.message}`,
+      });
+    }
   }
+  
   return (
     <form action="" onSubmit={handleAddCart}>
       <div className="py-4 mx-auto lg:max-w-7xl sm:max-w-full">

@@ -1,7 +1,7 @@
 const { where } = require("sequelize");
 const { resErrors, resData } = require("./common/common");
 const db = require("../models/index");
-const { createOrderItem } = require("../service/orderItemService");
+const { createOrderItem, findOrderItem } = require("../service/orderItemService");
 
 
 class ApiOrderItemController {
@@ -15,24 +15,29 @@ class ApiOrderItemController {
     }
   }
   static async findById(req, res) {
-    const {id} = req.params;
-    
+    try {
+      const {id} = req.params;
+      console.log('id',id);
+      
+      const orderItems = await findOrderItem(id);
+      
+      let message = "Get data successfully";
+      // res.json(orderItems)
+      resData(res, 200, message, orderItems);
+    } catch (error) {
+      console.error(error);
+    }    
   }
   static async create(req, res) {
     
     try {
-      const datas   = req.body;
+      const datas = req.body;
       
       const data = datas.body;
       const { orderId, ...items } = data; 
-      console.log('items', items);
-      console.log('orderId',orderId);
       
-      
-      
-      // // Tạo tất cả các mục đơn hàng song song
       const orderItems = await Promise.all(
-        Object.values(items).map((item) => createOrderItem(item, orderId))
+        Object.values(items.data).map((item) => createOrderItem(item, orderId))
       );
       
       return res.status(201).json({
