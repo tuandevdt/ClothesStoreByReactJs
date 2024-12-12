@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useNewCartMutation } from "../../../redux/createAPI";
-import { useDispatch } from "react-redux";
-import { addCartItem } from "../../../redux/slice/cartSlice";
-
-export default function DetailItem({ product }) {
+import { formatCurrency } from "../../../datatransfer/formatCurrency";
+export default function DetailItem({ product, refetch }) {
   const [addCart] = useNewCartMutation();
-  const dispatch = useDispatch();
 
 
   const [color, setColor] = useState(product.colors[0]);
@@ -19,10 +16,13 @@ export default function DetailItem({ product }) {
     if (persistedAuth) {
       const parsedAuth = JSON.parse(persistedAuth); // Phân tích cú pháp JSON
       const userId = parsedAuth.id ? parsedAuth.id.replace(/\"/g, '') : null; // Lấy id và loại bỏ dấu ngoặc kép
-      setUserId(userId);
-      
+      setUserId(userId);  
     }
   }, []);
+
+  useEffect(() => {
+    setColor(product.colors[0])
+  }, [product, refetch])
 
   const handleSizeSelect = (size) => {
     setSelectedSize(size);
@@ -75,7 +75,6 @@ export default function DetailItem({ product }) {
       });
   
       const cartResponse = await addCart(newData).unwrap();
-      // dispatch(addCartItem(cartResponse)); 
 
       Swal.fire({
         position: "top-center",
@@ -89,7 +88,7 @@ export default function DetailItem({ product }) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: `Something went wrong: ${error.message}`,
+        text: `Please Login!!!`,
       });
     }
   }
@@ -192,7 +191,7 @@ export default function DetailItem({ product }) {
             <div className="flex flex-wrap gap-4 items-start">
               <div>
                 <p className="text-gray-800 text-4xl font-bold">
-                  {product.price} đ
+                  {formatCurrency(product.price)}
                 </p>
                 <p className="text-gray-500 text-sm mt-2">
                   <strike>$42</strike>{" "}
@@ -243,7 +242,7 @@ export default function DetailItem({ product }) {
             </div>
             <hr className="my-8" />
             <div>
-              <h3 className="text-xl font-bold text-gray-800">Choose a Size</h3>
+              <h3 className="text-xl font-bold text-gray-800">Chọn size</h3>
               <div className="flex flex-wrap gap-4 mt-4">
   {color.sizes.map((size) => (
     <div key={size.id} className="flex flex-col items-center">
@@ -287,7 +286,7 @@ export default function DetailItem({ product }) {
             <hr className="my-8" />
             <div>
               <h3 className="text-xl font-bold text-gray-800">
-                Choose a Color
+                Chọn màu
               </h3>
               <div className="flex flex-wrap gap-4 mt-4">
                 {product.colors?.map((colorItem) => (

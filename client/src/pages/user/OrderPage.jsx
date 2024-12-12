@@ -9,13 +9,14 @@ export default function OrderPage() {
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
-  const { data } = useGetOrdersQuery(id);
-  
-  const list = data?.orders.map((item) => { 
+  const { data, refetch } = useGetOrdersQuery(id);
+
+  const list = data?.orders.map((item) => {
     return (
       <OrderItem
       key={item.id}
       order={item}
+      refetch={refetch}
       status={
         <dd className="me-2 mt-1.5 inline-flex items-center rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
           <svg
@@ -41,7 +42,9 @@ export default function OrderPage() {
     />
     )
   });
+
   
+
   return (
     <>
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">

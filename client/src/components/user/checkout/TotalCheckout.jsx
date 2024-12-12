@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useGetProductsQuery } from '../../../redux/createAPI';
+import { formatCurrency } from '../../../datatransfer/formatCurrency';
 
 export default function TotalCheckout({ carts, onUpdateTotalPrice }) {
     const { data: products, isLoading, isError, error } = useGetProductsQuery();
@@ -47,7 +48,7 @@ export default function TotalCheckout({ carts, onUpdateTotalPrice }) {
     <div />
     <div />
     <div className="text-base font-bold text-gray-900 dark:text-white text-right">
-      {total} đ
+      {formatCurrency(total)}
     </div>
     <input
       type="hidden"

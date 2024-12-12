@@ -3,18 +3,16 @@ import UserItem from "./UserItem";
 import { useGetUsersQuery } from "../../../redux/createAPI";
 export default function ListUser() {
   const { data } = useGetUsersQuery(undefined, {
-    refetchOnMountOrArgChange: true, // Tự động lấy lại dữ liệu khi component mount lại
+    refetchOnMountOrArgChange: true, 
   });   
     
     const users = data?.data || []; 
-    console.log(users);
     
     const dataUsers = users.map((item) => (
         <UserItem 
             key={item.id}
             name={item.username}
             image={item.image}
-            color="red"
             status={item.isActive}
             email={item.email}
             role={item.role}
@@ -29,9 +27,6 @@ export default function ListUser() {
           <tr>
             <th className="p-4 text-left text-sm font-semibold text-black">
               Name
-            </th>
-            <th className="p-4 text-left text-sm font-semibold text-black">
-              Color
             </th>
             <th className="p-4 text-left text-sm font-semibold text-black">
               Role

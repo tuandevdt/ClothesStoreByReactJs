@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import {formatCurrency} from "../../../datatransfer/formatCurrency";
 export default function ProductItem({ product }) {
   const defaultImage = product.colors?.[0]?.image || "default-image-url.jpg";
 
@@ -30,9 +30,9 @@ export default function ProductItem({ product }) {
       </Link>
       <div className="pl-6 bg-white">
         <Link to={`/products/${product.id}`}>
-          <h3 className="text-lg pt-4 font-bold text-gray-800">{product.name}</h3>
+        <h3 className="text-lg pt-4 font-bold text-gray-800 truncate">{product.name}</h3>        
         </Link>
-        <h4 className="text-lg text-gray-800 font-bold mt-2">{product.price} đ</h4>
+        <h4 className="text-lg text-gray-800 font-bold mt-2">{formatCurrency(product.price)}</h4>
       </div>
       <div className="pl-6 bg-white pt-2 pb-4 flex">
         {product.colors.map((item) => (

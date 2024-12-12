@@ -6,10 +6,8 @@ import {
   useGetCartsQuery,
 } from "../../../redux/createAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { setCarts, updateCart } from "../../../redux/slice/cartSlice";
 
 export default function FormCart() {
-  const dispatch = useDispatch();
   const [updateCartMutation] = useUpdateCartMutation();
 
   const [userId, setUserId] = useState(null);
@@ -26,12 +24,12 @@ export default function FormCart() {
       setUserId(userId);
     }
   }, []);
-  console.log('dataCarts',carts);
+
 
   const dataCarts = carts?.data || []
   
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <h1></h1>;
   }
   
 

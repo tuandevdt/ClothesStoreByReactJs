@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useGetProductsQuery } from "../../../redux/createAPI";
+import { formatCurrency } from "../../../datatransfer/formatCurrency";
 
 export default function TotalCart({carts}) {
     const { data: products, isLoading, isError, error } = useGetProductsQuery();
@@ -37,7 +38,6 @@ export default function TotalCart({carts}) {
         return totalPrice;
       };
       
-      // Tính tổng tiền
       const total = calculateTotalPrice(carts, listProducts);
     
   return (
@@ -47,16 +47,16 @@ export default function TotalCart({carts}) {
       </h3>
       <ul className="text-gray-800 divide-y mt-4">
         <li className="flex flex-wrap gap-4 text-sm py-3">
-          Subtotal <span className="ml-auto font-bold">{total} đ</span>
+          Subtotal <span className="ml-auto font-bold">{formatCurrency(total)}</span>
         </li>
         <li className="flex flex-wrap gap-4 text-sm py-3">
-          Shipping <span className="ml-auto font-bold">0 đ</span>
+          Shipping <span className="ml-auto font-bold">0đ</span>
         </li>
         <li className="flex flex-wrap gap-4 text-sm py-3">
-          Tax <span className="ml-auto font-bold">0 đ</span>
+          Tax <span className="ml-auto font-bold">0đ</span>
         </li>
         <li className="flex flex-wrap gap-4 text-sm py-3 font-bold">
-          Total <span className="ml-auto">{total} đ</span>
+          Total <span className="ml-auto">{formatCurrency(total)}</span>
         </li>
       </ul>
       <button

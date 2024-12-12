@@ -18,7 +18,7 @@ const getAllProduct = async () => {
           attributes: ["id", "name", "image"], // Lấy thông tin color
         },
       ],
-      attributes: ["id", "name", "price", "description"], // Lấy thông tin product
+      attributes: ["id", "name", "price", "description", "categoryId"], // Lấy thông tin product
     });
     return products;
   } catch (error) {
@@ -196,6 +196,36 @@ const getProductByCategoryId = async (categoryId) => {
   }
 }
 
+const deleteProduct = async (id) => {
+  try {
+    const deleteProduct = await Product.destroy({
+      where: { id },
+    })    
+    return deleteProduct;
+  } catch (error) {
+    console.error("Get product error:", error);
+    throw error;
+  }
+}
+
+const getTop10Products = async () => {
+  try {
+    const products = await Product.findAll({
+      order: [['price', 'DESC']],
+      limit: 10,
+      include: [{
+          model: Color,
+          as: 'colors',
+          attributes: ['image']
+      }],
+  });
+  
+  return products;
+  } catch (error) {
+    console.error("Get product error:", error);
+    throw error;
+  }
+}
 
 module.exports = {
   getAllProduct,
@@ -203,4 +233,6 @@ module.exports = {
   getProductById,
   updateProduct,
   getProductByCategoryId,
+  deleteProduct,
+  getTop10Products
 };

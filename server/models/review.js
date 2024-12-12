@@ -6,49 +6,42 @@ const Review = sequelize.define(
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          min: 1, // Đánh giá tối thiểu
-          max: 5, // Đánh giá tối đa
+          min: 1, 
+          max: 5,
         },
       },
       text: {
-        type: DataTypes.TEXT, // Nội dung đánh giá
-        allowNull: true, // Có thể để trống
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW, // Thời gian tạo đánh giá
+        type: DataTypes.TEXT,
+        allowNull: true, 
       },
       productId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "products", // Tên bảng trong cơ sở dữ liệu (viết thường)
-          key: "id", // Khóa chính của bảng Product
+          model: "products", 
+          key: "id", 
         },
       },
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "users", // Tên bảng trong cơ sở dữ liệu (viết thường)
-          key: "id", // Khóa chính của bảng User
+          model: "users", 
+          key: "id", 
         },
       },
     },
     {
-      timestamps: false, // Không tự động tạo createdAt và updatedAt
+      timestamps: true,
     }
   );
 
-  // Định nghĩa các mối quan hệ giữa Review và các model khác
   Review.associate = function (models) {
-    // Mối quan hệ với Product
     Review.belongsTo(models.Product, {
       foreignKey: "productId",
-      as: "product", // Tên alias cho mối quan hệ
+      as: "product", 
     });
 
-    // Mối quan hệ với User
     Review.belongsTo(models.User, {
       foreignKey: "userId",
       as: "user", 

@@ -9,7 +9,6 @@ export default function ListProduct({refetchTrigger }) {
         refetchOnMountOrArgChange: true,
       })
       const products = data?.data || []; 
-      console.log('products lisst',products);
 
       useEffect(() => {
         if (refetchTrigger) {
@@ -24,7 +23,7 @@ export default function ListProduct({refetchTrigger }) {
             <Thead />
             <tbody>
               {products.map((item) => (
-                <ItemProduct key={item.id} product={item} />
+                <ItemProduct key={item.id} product={item} refetch={refetch} />
               ))}
             </tbody>
 

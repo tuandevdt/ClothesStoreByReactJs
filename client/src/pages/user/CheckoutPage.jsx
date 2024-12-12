@@ -7,6 +7,7 @@ import ItemCheckout from "../../components/user/checkout/ItemCheckout";
 import TotalCart from "../../components/user/cart/TotalCart";
 import TotalCheckout from "../../components/user/checkout/TotalCheckout";
 import { useSelector } from "react-redux";
+import { formatCurrency } from "../../datatransfer/formatCurrency";
 
 export default function CheckoutPage() {
   const [totalPrice, setTotalPrice] = useState(0); 
@@ -22,7 +23,6 @@ export default function CheckoutPage() {
       const parsedAuth = JSON.parse(persistedAuth);
       const userId = parsedAuth.id ? parsedAuth.id.replace(/\"/g, '') : null; 
       setUserId(userId);
-      
     }
   }, []);
 
@@ -52,23 +52,16 @@ export default function CheckoutPage() {
     e.preventDefault();
     const formData = new FormData(e.target); 
     const values = Object.fromEntries(formData.entries());
-    console.log('values form',values); 
-    console.log('carts values', carts);
     const body = {userId, ...values}
     
     const order = await addOrder({body});
-    console.log('order',order);
     if(order.data.status == 200) {
-      console.log(1);
       
       const orderId = order.data.order.id;
       const newBody = {orderId, ...carts}
-      console.log('newBody',newBody);
       
       const orderItem = await addOrderItem({body: newBody});
-      console.log('orderItem',orderItem);
       const clear = await clearCart(userId);
-      console.log('clear',clear);
       
     }
     Swal.fire({

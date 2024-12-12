@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import { useDeleteProductMutation } from "../../../redux/createAPI"; // Adjust the import based on your actual API
+import { useDeleteProductMutation } from "../../../redux/createAPI";
 
-export default function ItemProduct({ product }) {
+export default function ItemProduct({ product, refetch }) {
   const [selectedColor, setSelectedColor] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState(null);
-  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false); // State for delete confirmation
-  // const [deleteProduct] = useDeleteProductMutation(); // Hook for deleting product
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
+  const [removeProduct] = useDeleteProductMutation()
 
   const handleColorClick = (color) => {
     setSelectedColor(color);
@@ -40,13 +40,14 @@ export default function ItemProduct({ product }) {
 
   const handleConfirmDelete = async () => {
     try {
-      // await deleteProduct(product.id); // Call delete mutation
-      console.log(`Product ${product.id} deleted successfully.`);
-      
+      const id = product.id;      
+      await removeProduct(id);
+      console.log(`Product ${id} deleted successfully.`);
+      refetch();
     } catch (error) {
       console.error("Error deleting product: ", error);
     } finally {
-      setIsConfirmingDelete(false); // Hide confirmation dialog
+      setIsConfirmingDelete(false);
     }
   };
 

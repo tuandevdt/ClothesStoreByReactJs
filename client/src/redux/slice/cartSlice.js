@@ -1,8 +1,7 @@
-// cartSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  carts: [],
+  totalQuantity: 0, // Quản lý tổng số lượng giỏ hàng
 };
 
 const cartSlice = createSlice({
@@ -10,23 +9,13 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     setCarts: (state, action) => {
-      state.carts = action.payload;
-    },
-    updateCart: (state, action) => {
-      const { cartId, newQuantity } = action.payload;
-      const cart = state.carts.find(cart => cart.id === cartId);
-      if (cart) {
-        cart.quantity = newQuantity;
-      }
+      state.totalQuantity = action.payload; // Cập nhật tổng số lượng
     },
     addCartItem: (state, action) => {
-      state.carts.push(action.payload);  // Thêm sản phẩm vào giỏ hàng
-    },
-    removeCartItem: (state, action) => {
-      state.carts = state.carts.filter(cart => cart.id !== action.payload); // Xóa sản phẩm khỏi giỏ
+      state.totalQuantity += action.payload.quantity; // Thêm số lượng khi thêm sản phẩm mới
     },
   },
 });
 
-export const { setCarts, updateCart, addCartItem, removeCartItem } = cartSlice.actions;
+export const { setCarts, addCartItem } = cartSlice.actions;
 export default cartSlice.reducer;

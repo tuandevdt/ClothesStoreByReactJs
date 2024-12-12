@@ -6,9 +6,9 @@ export default function AdminUser() {
 
 
   return (
-    <div className="font-[sans-serif] overflow-x-auto lg:ml-64">
-        <SearchUser />
-        <ListUser />  
+    <div className="font-[sans-serif] mt-4 overflow-x-auto lg:ml-64">
+      <h1 className="pl-4 text-2xl font-bold">Quản lý user</h1>
+      <ListUser />  
     </div>
   );
 }

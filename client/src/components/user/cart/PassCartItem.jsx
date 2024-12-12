@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa6";
 import { useDeleteCartMutation, useUpdateCartMutation } from "../../../redux/createAPI";
+import {formatCurrency} from "../../../datatransfer/formatCurrency";
+import { Link } from "react-router-dom";
 
 export default function PassCartItem({ item, cart, refetch, updateCartQuantity }) {
     const [updateCart] = useUpdateCartMutation()
@@ -61,15 +63,18 @@ export default function PassCartItem({ item, cart, refetch, updateCartQuantity }
     await deleteCart(id);
     refetch();
   }
-
+  console.log('item cart', item);
+  
   return (
     <div className="flex items-start max-sm:flex-col gap-4 py-4">
       <div className="h-36 shrink-0">
+        <Link to={`/products/${item.productId}`}>
         <img
           src={item.color.image}
           className="w-full h-full object-contain rounded-md"
           alt="Product"
         />
+        </Link>
       </div>
       <div className="flex items-start gap-4 w-full">
         <div>
@@ -86,7 +91,7 @@ export default function PassCartItem({ item, cart, refetch, updateCartQuantity }
             </h6>
             <h6 className="text-sm text-gray-800">
               Price:{" "}
-              <strong className="ml-2">{item.product.price || 20000} đ</strong>
+              <strong className="ml-2">{formatCurrency(item.product.price)}</strong>
             </h6>
           </div>
           <div className="mt-4 flex flex-wrap gap-4">
@@ -128,7 +133,7 @@ export default function PassCartItem({ item, cart, refetch, updateCartQuantity }
           <div className="mt-4">
             <h4 className="text-lg font-bold text-gray-500 mb-1">
               <strike className="font-medium">
-                ${item.product.price * cart.quantity || "22.5"}
+                {formatCurrency(item.product.price * cart.quantity)}
               </strike>
             </h4>
             <h4 className="text-lg font-bold text-gray-800"> 18.5</h4>

@@ -23,6 +23,12 @@ export const todoApi = createApi({
   }),
   endpoints: (builder) => ({
     // Admin Endpoints
+    getTop10: builder.query({
+      query: () => `${adminUrl}products/top10price`
+    }),
+    countStatus: builder.query({
+      query: () =>`${adminUrl}orders/countStatus`
+    }),
     getUsers: builder.query({
       query: () => `${adminUrl}users`,
     }),
@@ -75,7 +81,22 @@ export const todoApi = createApi({
     }),
     deleteProduct: builder.mutation({
       query: (id) => ({
-        url: `${adminUrl}/${id}`,
+        url: `${adminUrl}products/${id}`,
+        method: 'DELETE',
+      })
+    }),
+    getAllOrdersAdmins: builder.query({
+      query: () => `${adminUrl}orders`
+    }),
+    getStatusAdmin: builder.query({
+      query: (id) => `${adminUrl}orders/status/${id}`
+    }),
+    getReviewsAdmins: builder.query({
+      query: () => `${adminUrl}reviews`
+    }),
+    deleteReview: builder.mutation({
+      query: (id) => ({
+        url: `${adminUrl}reviews/${id}`,
         method: 'DELETE',
       })
     }),
@@ -96,6 +117,23 @@ export const todoApi = createApi({
     getDetail: builder.query({
       query: (id) => `${userUrl}products/${id}`
     }), 
+    newComment: builder.mutation({
+      query: (body) => ({
+        url: `${userUrl}review`,
+        method: 'POST',
+        body
+      })
+    }),
+    getComments: builder.query({
+      query: (productId) => `${userUrl}review/${productId}`,
+    }), 
+    updateComment: builder.mutation({
+      query: ({id, text, rating}) => ({
+        url: `${userUrl}review/${id}`,
+        method: 'PATCH',
+        body: {text, rating},
+      })
+    }),   
     newCart: builder.mutation({
       query: (body) => ({
         url: `${userUrl}cart`,
@@ -150,6 +188,13 @@ export const todoApi = createApi({
     getOrders: builder.query({
       query: (id) => `${userUrl}order/${id}`
     }),
+    updateOrder: builder.mutation({
+      query: ({ id, status }) => ({
+        url: `${userUrl}order/${id}`,
+        method: 'PATCH',
+        body: { status },
+      }),
+    }),    
     getAllOrderItems: builder.query({
       query: (id) => `${userUrl}orderItem/${id}`,
       providesTags: (result, error, id) => [{ type: 'orderItem', id }],
@@ -178,7 +223,8 @@ export const todoApi = createApi({
 export const {
   useGetUsersQuery,
   useUpdateStatusUserMutation,
-
+  useGetTop10Query,
+  useCountStatusQuery,
   useGetCategoriesAdminQuery,
   useNewCategoryMutation,
   useUpdateCategoryMutation,
@@ -186,12 +232,22 @@ export const {
   useGetProductsAdminQuery,
   useNewProductMutation,
   useUpdateProductMutation,
+  useDeleteProductMutation,
+  useGetAllOrdersAdminsQuery,
+  useGetStatusAdminQuery,
+  useGetReviewsAdminsQuery,
+  useDeleteReviewMutation,
+
   useLazyGetProductsByCategoryIdQuery,
   useNewOrderMutation,
   useNewOrderItemMutation,
   useClearCartMutation,
   useGetOrdersQuery,
+  useUpdateOrderMutation,
   useGetAllOrderItemsQuery,
+  useNewCommentMutation,
+  useGetCommentsQuery,
+  useUpdateCommentMutation,
 
   useGetProductsQuery,
   useGetDetailQuery,

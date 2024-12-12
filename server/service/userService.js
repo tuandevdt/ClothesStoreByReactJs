@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const { User } = require("../models")
 
 const getAllUser = async () => {
@@ -27,7 +28,7 @@ const updateStatusUser = async (id, isActive) => {
 
 const getUser = async (id) => {
     try {
-        const user = await User.findOne({id});
+        const user = await User.findOne({where: {id}});
         return user;
     } catch (error) {
         console.error("Error fetching users:", error)

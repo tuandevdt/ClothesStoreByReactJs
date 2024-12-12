@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
-import { useState } from "react";
-import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+import checkAndRefreshToken from "../../middleware/checkAndRefreshToken";
 
 export const loginUser = createAsyncThunk('auth/loginUser', async (userData, { rejectWithValue }) => {
   try {
@@ -22,14 +21,15 @@ export const getUser = createAsyncThunk('auth/getUser', async (_, { rejectWithVa
     if (!token) {
       return rejectWithValue("No token found");
     }
-    const decodedToken = jwtDecode(token);
-    
-      if (decodedToken.exp * 1000 < Date.now()) {
-        return rejectWithValue("Token has expired");
-      }
-      return decodedToken;
+    const refreshedToken = await checkAndRefreshToken(token);
+
+    if (!refreshedToken) {
+      return rejectWithValue("Token is invalid or expired");
+    }
+
+    const decodedToken = jwtDecode(refreshedToken);
+    return decodedToken;
       
-    
   } catch (error) {
     return rejectWithValue("Failed to decode token");
   }

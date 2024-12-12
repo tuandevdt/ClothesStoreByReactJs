@@ -67,18 +67,16 @@ class ApiAuthController {
     try {
       const { refreshToken } = req.body;
       
-      // Kiểm tra xem refresh token có được cung cấp không
       if (!refreshToken) {
         return res.status(401).json({ message: "No refresh token provided" });
       }
   
-      // Xác thực Refresh Token
       jwt.verify(refreshToken, "TuanDevRefreshToken", async (err, user) => {
         if (err) {
           return res.status(403).json({ message: "Invalid refresh token" });
         }
         console.log("users auth", user);
-        const id = user.id;
+        let id = user.id;
         const newUser = await getUser(id)
         console.log('newuser', newUser);
         

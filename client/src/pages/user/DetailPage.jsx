@@ -7,10 +7,13 @@ import { useGetDetailQuery, useLazyGetProductsByCategoryIdQuery } from "../../re
 
 export default function DetailPage() {
   const { id } = useParams(); 
-  const { data, isLoading, isError } = useGetDetailQuery(id); 
+  const { data, isLoading, isError, refetch } = useGetDetailQuery(id); 
   const [triggerGetProducts, { data: productList }] = useLazyGetProductsByCategoryIdQuery(); 
 
   const [similarProducts, setSimilarProducts] = useState([]);
+  useEffect(() => {
+    refetch();
+  }, [id, refetch]);
 
   useEffect(() => {
     if (data?.product?.categoryId) {
@@ -24,14 +27,14 @@ export default function DetailPage() {
     }
   }, [productList]);
 
-  if (isLoading) return <p>Loading product details...</p>;
+  if (isLoading) return <p></p>;
   if (isError) return <p>Error loading product details.</p>;
 
   const product = data?.product || {};
 
   return (
     <div className="font-[sans-serif] py-4 mx-auto lg:max-w-7xl sm:max-w-full">
-      <DetailItem product={product} />
+      <DetailItem product={product} refetch={refetch} />
 
       <div className="container w-full mx-auto py-8">
         <h1 className="font-bold text-2xl mb-4">Sản phẩm tương tự</h1>
@@ -42,7 +45,7 @@ export default function DetailPage() {
         </div>
       </div>
 
-      <Comments />
+      <Comments productId={id} />
     </div>
   );
 }

@@ -55,3 +55,9 @@
 .box-icon-large:hover {
   color: #c7c7c7;
 }
+
+.truncate {
+  overflow: hidden;
+  white-space: nowrap; /* Ngăn không cho xuống dòng */
+  text-overflow: ellipsis; /* Hiển thị ... */
+}

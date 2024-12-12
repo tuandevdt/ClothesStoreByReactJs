@@ -7,14 +7,13 @@ import Swal from "sweetalert2";
 export default function PrivateRoute({ element: Element, ...rest }) {
   const dispatch = useDispatch();
 
-  const { username, role, email, loading, error } = useSelector((state) => state.auth); // Truy cập state từ auth slice
+  const { username, role, loading  } = useSelector((state) => state.auth); 
   console.log('username', username);
   console.log("role check o", role);
 
   if (loading) return <div>Loading...</div>;
 
 
-  // if (!role) return null; // Chờ load xong dữ liệu
 
   useEffect(() => {
     if (!role) {

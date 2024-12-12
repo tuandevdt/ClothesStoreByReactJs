@@ -25,6 +25,8 @@ import { GrDashboard } from "react-icons/gr";
 import PrivateRoute from "./middleware/PrivateRoute";
 import NewProduct from "./components/admin/ProductManager/NewProduct";
 import EditProduct from "./components/admin/ProductManager/EditProduct";
+import AdminOrders from "./pages/admin/AdminOrder";
+import AdminReview from "./pages/admin/AdminReview";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -46,7 +48,7 @@ const App = () => {
     },
     {
       path: "/admin",
-      element: <PrivateRoute element={Admin} />,  // Pass the component directly here
+      element: <PrivateRoute element={Admin} />,  
       children: [
         {path: "", element: <AdminDashboard />},
         { path: "dashboard", element: <AdminDashboard /> },
@@ -55,6 +57,8 @@ const App = () => {
         { path: "products", element: <AdminProduct /> },
         { path: "products/new", element: <NewProduct /> },
         { path: "products/edit/:id", element: <EditProduct /> },
+        { path: "orders", element: <AdminOrders />},
+        { path: "reviews", element: <AdminReview />},
       ],
     },
     { path: "/login", element: <Login /> },

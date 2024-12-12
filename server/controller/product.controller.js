@@ -1,5 +1,7 @@
 const { resErrors, resData } = require("./common/common");
-const {getAllProduct, createProduct, getProductById, updateProduct, getProductByCategoryId} = require("../service/productService");
+const {getAllProduct, 
+  createProduct, 
+  getProductById, updateProduct, getProductByCategoryId, deleteProduct, getTop10Products} = require("../service/productService");
 
 class ApiProductController {
   static async index(req, res) {
@@ -46,15 +48,28 @@ class ApiProductController {
     try {
       const {id} = req.params;
       const data = req.body;
-      console.log(id);
-      console.log('data update',data);
-      
-      let message = "update product successfully";
+      console.log(id);      
 
       let product = await updateProduct(id, data)
-      console.log('product after update',product);
       
       resData(res, 200, message, product);
+    } catch (error) {
+      resErrors(res, 500, error.message);
+    }
+  }
+  static async delete(req, res) {
+    try {
+      const {id} = req.params;      
+      const remove = await deleteProduct(id)      
+      res.json(remove);
+    } catch (error) {
+      resErrors(res, 500, error.message);
+    }
+  }
+  static async getTop10(req, res) {
+    try {
+      const products = await getTop10Products()
+      res.json({products})
     } catch (error) {
       resErrors(res, 500, error.message);
     }

@@ -122,7 +122,7 @@ export default function Sidebar() {
 
                 <li>
                   <Link
-                    to="/reviews"
+                    to="reviews"
                     className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group "
                   >
                     <svg
